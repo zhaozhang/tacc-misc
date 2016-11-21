@@ -7,13 +7,13 @@
 #SBATCH -t 8:00:00        # run time (hh:mm:ss) - 4 hours
 #SBATCH -A PEMFS    #TG-CCR150011    # project name
 
-NODE_LIST=`echo $SLURM_NODELIST`
+NODE_LIST=`scontrol show hostnames $SLURM_NODELIST`
 NODE_HOSTNAME=`hostname -s`
 
 echo "TACC: NODE_LIST: $NODE_LIST"
 echo "TACC: NODE_HOSTNAME: $NODE_HOSTNAME"
 
-read HEAD TAIL <<< `echo $NODE_LIST | sed -n 's/c252-\[\([0-9][0-9][0-9]\)-\([0-9][0-9][0-9]\)\]$/\1 \2/p'`
+
 
 #Copy conf templates into ~/.spark/conf
 if [ ! -d ~/.spark ]; then
@@ -28,9 +28,10 @@ mkdir ~/.spark/conf
 cp -r /etc/spark/conf/spark-defaults.conf ~/.spark/conf/
 
 #Update slaves with worker nodes
-for n in `seq $(($HEAD+1)) $TAIL`;
+for n in `echo $NODE_LIST | cut -d " " -f2-`;
 do
-    echo c252-$n >> ~/.spark/conf/slaves
+    echo adding $n
+    echo $n >> ~/.spark/conf/slaves
 done
 
 #Update spark-defaults.conf
