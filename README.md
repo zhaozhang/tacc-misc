@@ -1,10 +1,16 @@
 This is the standalone spark launching script.
 To use it:
+
     1) Add the following line in ~/.bashrc
+
        export SPARK_CONF_DIR=~/.spark/conf
+
     2) Run 
+
        sbatch spark.slurm
+
     3) Login to the compute node, then run with the master address, e.g.,
+
        spark-shell --master spark://c252-101:7077     
 
 Notes:
