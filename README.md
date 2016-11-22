@@ -1,18 +1,7 @@
-This is the standalone spark launching script.
-To use it:
+This repo has various scripts and configuration files for the systems we support on Wrangler at TACC.
 
-1) Add the following line in ~/.bashrc
+At this moment, it inlucdes:
 ```
-$ export SPARK_CONF_DIR=~/.spark/conf
+Spark-1.6.1
+ElasticSearch-5.0.1
 ```
-2) Run 
-```
-$ sbatch spark.slurm
-```
-3) Login to the compute node, then run with the master address, e.g.,
-```
-$ spark-shell --master spark://c252-101:7077     
-```
-Notes:
-This script only works with c252 rack, and expecting the node list in the format of c252-[101-104].
-So it has to work with at least 3 nodes.
